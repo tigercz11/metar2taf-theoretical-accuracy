@@ -1,43 +1,39 @@
-# TAF L3 Maximum Theoretical Accuracy Analysis
+# Analýza maximální teoretické přesnosti TAF dle předpisu L3
 
-Python tool developed as part of a bachelor thesis at the University of Defence for evaluating the theoretical maximum achievable accuracy of TAF forecasts under strict ICAO Annex 3 / L3 regulatory constraints.
+Python nástroj vyvinutý v rámci bakalářské práce na Univerzitě obrany pro vyhodnocení maximální teoreticky dosažitelné přesnosti předpovědí TAF při striktním dodržení regulačních omezení ICAO Annex 3 / L3.
 
-## Purpose
+## Účel
 
-The project simulates an "Ideal Forecaster" that has perfect knowledge of future METAR observations but is still constrained by aviation meteorological regulations defining when weather changes may legally appear in TAF forecasts.
+Projekt simuluje „Ideálního předpovídatele", který má dokonalou znalost budoucích pozorování METAR, ale zároveň je omezen leteckými meteorologickými předpisy definujícími, kdy smí být změny počasí legálně uvedeny v předpovědích TAF.
 
-The software quantifies:
+Software kvantifikuje:
+- teoretickou přesnost předpovědi
+- snížení detekovatelnosti změn způsobené předpisem
+- Brierovo skóre
+- matice záměn
+- četnost falešných poplachů (FAR)
 
-- theoretical forecast accuracy
-- reduction in change detectability caused by regulation
-- Brier Score
-- confusion matrices
-- False Alarm Ratio (FAR)
+## Analyzované meteorologické parametry
 
-## Analysed meteorological parameters
+- Rychlost větru (SKNT)
+- Dohlednost (VSBY)
+- Význačné meteorologické jevy (WX)
 
-- Wind speed (SKNT)
-- Visibility (VSBY)
-- Significant weather phenomena (WX)
+## Metodika
 
-## Methodology
+Program porovnává:
 
-The program compares:
+1. **Fyzikální model**
+   Detekuje každou fyzikální změnu počasí.
+2. **Regulační model (L3 model)**
+   Aplikuje prahové filtrování a seskupovací logiku dle ICAO Annex 3 / L3.
 
-1. Physical model  
-   Detects every physical weather change.
+Rozdíl mezi oběma modely definuje metriku:
+- Snížení přesnosti (%)
 
-2. Regulatory model (L3 model)  
-   Applies ICAO Annex 3 / L3 threshold filtering and grouping logic.
+## Zdroj dat
 
-The difference between both models defines the metric:
-
-- Reduction (%)
-
-## Data source
-
-The program expects METAR datasets in CSV format containing:
-
+Program očekává datové sady METAR ve formátu CSV obsahující sloupce:
 - station
 - valid
 - sknt
@@ -45,53 +41,45 @@ The program expects METAR datasets in CSV format containing:
 - gust
 - wxcodes
 
-Historical aviation weather observations were obtained from:
-
+Historická letecká meteorologická pozorování byla získána z:
 Iowa Environmental Mesonet (IEM)
 
-## Installation
+## Instalace
 
-Python 3.10+ recommended.
+Doporučená verze: Python 3.10+.
 
-Install dependencies:
-
+Instalace závislostí:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Použití
 
-Place the METAR CSV dataset in the project folder.
+Umístěte datovou sadu METAR ve formátu CSV do složky projektu.
 
-Expected filename:
-
+Očekávaný název souboru:
 ```text
 Germany_metars.csv
 ```
 
-Run:
-
+Spuštění:
 ```bash
 python tempoaccuracy.py
 ```
 
-## Output
+## Výstup
 
-The program generates:
-
-- console statistical output
-- confusion matrices
-- summary metrics
-- CSV summary table:
-
+Program generuje:
+- statistický výstup do konzole
+- matice záměn
+- souhrnné metriky
+- souhrnnou CSV tabulku:
 ```text
 taf_precision_summary.csv
 ```
 
+Univerzita obrany, Brno, Česká republika, 2026.
 
-
-University of Defence, Brno, Czech Republic, 2026.
-
-## Author
+## Autor
 
 Adam Vlachovský
